@@ -2,26 +2,30 @@
 
 #include "ll/api/mod/RegisterHelper.h"
 
-namespace my_mod {
+#include "hook.h"
 
-MyMod& MyMod::getInstance() {
-    static MyMod instance;
+namespace my_mod {
+ll::io::Logger& logger = Entry::getInstance().getSelf().getLogger();
+
+Entry& Entry::getInstance() {
+    static Entry instance;
     return instance;
 }
 
-bool MyMod::load() {
+bool Entry::load() {
     getSelf().getLogger().debug("Loading...");
     // Code for loading the mod goes here.
     return true;
 }
 
-bool MyMod::enable() {
+bool Entry::enable() {
     getSelf().getLogger().debug("Enabling...");
     // Code for enabling the mod goes here.
+    //registerEvent();
     return true;
 }
 
-bool MyMod::disable() {
+bool Entry::disable() {
     getSelf().getLogger().debug("Disabling...");
     // Code for disabling the mod goes here.
     return true;
@@ -29,4 +33,4 @@ bool MyMod::disable() {
 
 } // namespace my_mod
 
-LL_REGISTER_MOD(my_mod::MyMod, my_mod::MyMod::getInstance());
+LL_REGISTER_MOD(my_mod::Entry, my_mod::Entry::getInstance());
